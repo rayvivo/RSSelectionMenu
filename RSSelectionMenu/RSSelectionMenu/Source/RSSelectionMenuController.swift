@@ -31,6 +31,10 @@ open class RSSelectionMenu<T>: UIViewController, UIPopoverPresentationController
     // MARK: - Views
     public var tableView: RSSelectionTableView<T>?
     
+    //dismis ---MC
+    public var dismissEnabled:Bool = true
+    
+    
     /// SearchBar
     public var searchBar: UISearchBar? {
         return tableView?.searchControllerDelegate?.searchBar
@@ -65,6 +69,12 @@ open class RSSelectionMenu<T>: UIViewController, UIPopoverPresentationController
         didSet {
             self.tableView?.selectionDelegate?.maxSelectedLimit = maxSelectionLimit
         }
+    }
+    
+    ///enable disable dismiss
+    public func dismissAutomatically(isEnabled: Bool)
+    {
+        self.dismissEnabled = isEnabled
     }
     
     /// Selection menu willAppear handler
@@ -301,14 +311,15 @@ extension RSSelectionMenu {
             
             // perform on dimiss operations
             self?.menuWillDismiss()
-            
-            switch self?.menuPresentationStyle {
-            case .push?:
-                self?.navigationController?.popViewController(animated: animated!)
-            case .present?, .popover?, .formSheet?, .alert?, .actionSheet?:
-               self?.dismiss(animated: animated!, completion: nil)
-            case .none:
-                break
+            if self?.dismissEnabled == true{
+                switch self?.menuPresentationStyle {
+                case .push?:
+                    self?.navigationController?.popViewController(animated: animated!)
+                case .present?, .popover?, .formSheet?, .alert?, .actionSheet?:
+                    self?.dismiss(animated: animated!, completion: nil)
+                case .none:
+                    break
+                }
             }
         }
     }
