@@ -34,6 +34,9 @@ open class RSSelectionMenuSearchDelegate: NSObject {
     /// to execute on search event
     public var didSearch: ((String) -> ())?
     
+    /// cancel button
+    public var cancelButtonAttributes: SearchBarCancelButtonAttributes?
+    
     // MARK: - Initialize
     init(placeHolder: String, barTintColor: UIColor) {
         super.init()
@@ -52,6 +55,19 @@ open class RSSelectionMenuSearchDelegate: NSObject {
             return
         }
         searchHandler(text ?? "")
+    }
+    
+    // cancel button
+    func setCancelButtonAttributes(attributes: SearchBarCancelButtonAttributes) {
+        guard let firstSubView = searchBar?.subviews.first else { return }
+        for view in firstSubView.subviews {
+            if let cancelButton = view as? UIButton {
+                cancelButton.setTitle(attributes.title, for: .normal)
+                if let color = attributes.tintColor {
+                    cancelButton.tintColor = color
+                }
+            }
+        }
     }
 }
 

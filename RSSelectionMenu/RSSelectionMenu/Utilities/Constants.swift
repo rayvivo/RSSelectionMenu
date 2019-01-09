@@ -74,3 +74,6 @@ public typealias UISearchBarResult<T> = ((_ searchText: String) -> (FilteredData
 
 /// FirstRowSelection
 public typealias FirstRowSelection = ((_ value: String, _ selected: Bool) -> ())
+
+/// SearchBar CancelButton
+public typealias SearchBarCancelButtonAttributes = (title: String, tintColor: UIColor?)

@@ -83,6 +83,11 @@ open class RSSelectionMenu<T>: UIViewController, UIPopoverPresentationController
     /// Selection menu dismissal handler
     public var onDismiss:((_ selectedItems: DataSource<T>) -> ())?
     
+    public var searchBarCancelButtonAttributes: SearchBarCancelButtonAttributes? = nil {
+        didSet {
+            self.tableView?.searchControllerDelegate?.cancelButtonAttributes = searchBarCancelButtonAttributes
+        }
+    }
     
     // MARK: - Private
     
